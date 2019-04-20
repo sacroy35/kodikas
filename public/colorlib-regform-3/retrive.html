@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Retrive data</title>
+    <style media="screen">
+      table, td{
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <table id="mytable">
+      <tr>
+        <td>Collage_name</td>
+        <td>Team_name</td>
+        <td>Member1_name</td>
+        <td>Member2_name</td>
+        <td>Email1</td>
+        <td>Email2</td>
+        <td>Phone</td>
+      </tr>
+    </table>
+  </body>
+  <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+<script>
+
+	// Initialize Firebase
+	var config = {
+		apiKey: "AIzaSyA1nnHte8bPxwQeuXM5JkWbDGx3sFxfYOo",
+		authDomain: "fir-bf533.firebaseapp.com",
+		databaseURL: "https://fir-bf533.firebaseio.com",
+		projectId: "fir-bf533",
+		storageBucket: "fir-bf533.appspot.com",
+		messagingSenderId: "364969798157"
+	};
+	firebase.initializeApp(config);
+
+	var database = firebase.database();
+
+
+	var ref = database.ref('Kodikas');
+	ref.on('value', gotData, errData);
+
+	function gotData(data){
+		//console.log(data.val());
+		var Kodikas = data.val();
+		var keys = Object.keys(Kodikas);
+		console.log(keys);
+		for(var i=0;i < keys.length; i++){
+			var k=keys[i];
+      var Collage_name=Kodikas[k].Collage_name
+			var Team_name=Kodikas[k].Team_name;
+			var mem1=Kodikas[k].Name_mem1;
+			var mem2=Kodikas[k].Name_mem2;
+			var email1=Kodikas[k].Email_1;
+			var email2=Kodikas[k].Email_2;
+			var phone=Kodikas[k].Phone_no;
+
+      var table=document.getElementById('mytable');
+      var row=table.insertRow(1);
+      var cell1=row.insertCell(0);
+      var cell2=row.insertCell(1);
+      var cell3=row.insertCell(2);
+      var cell4=row.insertCell(3);
+      var cell5=row.insertCell(4);
+      var cell6=row.insertCell(5);
+      var cell7=row.insertCell(6);
+
+      cell1.innerHTML=Collage_name;
+      cell2.innerHTML=Team_name;
+      cell3.innerHTML=mem1;
+      cell4.innerHTML=mem2;
+      cell5.innerHTML=email1;
+      cell6.innerHTML=email2;
+      cell7.innerHTML=phone;
+		}
+	}
+	function errData(err){
+		console.log('Error!');
+		console.log(err);
+	}
+</script>
+</html>

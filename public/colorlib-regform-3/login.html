@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+
+    <!-- Title Page-->
+    <title>Registration Form</title>
+
+    <!-- Icons font CSS-->
+    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Vendor CSS-->
+    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="css/main.css" rel="stylesheet" media="all">
+</head>
+
+<body>
+    <div class="page-wrapper bg-gra-01 p-t-100 p-b-100 font-poppins" style="padding-left: 25px; padding-right: 25px">
+        <div class="wrapper wrapper--w780">
+            <div class="card card-3">
+                <div class="card-body">
+                    <h2 class="title" >Registration Info</h2>
+                    <form method="POST" onsubmit="return validation()" >
+                        <div class="input-group">
+                            <input class="input--style-3" id="cname" type="text" placeholder="College Name" name="name">
+                            <span class="error"><p id="cname_error" style="color:#FF0000"></p></span>
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-3" id="tname" type="text" placeholder="Team Name" name="name">
+                            <span class="error"><p id="tname_error" style="color:#FF0000"></p></span>
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-3" id="name1" type="text" placeholder="Name #Member1" name="name">
+                            <span class="error"><p id="name1_error" style="color:#FF0000"></p></span>
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-3" id="name2" type="text" placeholder="Name #Member2" name="name">
+                            <span class="error"><p id="name2_error" style="color:#FF0000"></p></span>
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-3" id="email1" type="email" placeholder="Email #Member1" name="email">
+                            <span class="error"><p id="email1_error" style="color:#FF0000"></p></span>
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-3" id="email2" type="email" placeholder="Email #Member2" name="email">
+                            <span class="error"><p id="email2_error" style="color:#FF0000"></p></span>
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-3" id="ph" type="number" placeholder="Phone" name="phone">
+                            <span class="error"><p id="ph_error" style="color:#FF0000"></p></span>
+                        </div>
+                        <div class="p-t-10">
+                            <button class="btn btn--pill btn--green" value="submit" type="submit" onclick="getData(); return false;">Submit</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert" id="alert-box">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  You have been registered succesfully.
+</div>
+
+    <!-- Jquery JS-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Vendor JS-->
+    <script src="vendor/select2/select2.min.js"></script>
+    <script src="vendor/datepicker/moment.min.js"></script>
+    <script src="vendor/datepicker/daterangepicker.js"></script>
+
+    <!-- Main JS-->
+    <script src="js/global.js"></script>
+
+
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+    <script>
+
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyA1nnHte8bPxwQeuXM5JkWbDGx3sFxfYOo",
+            authDomain: "fir-bf533.firebaseapp.com",
+            databaseURL: "https://fir-bf533.firebaseio.com",
+            projectId: "fir-bf533",
+            storageBucket: "fir-bf533.appspot.com",
+            messagingSenderId: "364969798157"
+        };
+        firebase.initializeApp(config);
+
+        var database = firebase.database();
+        function validation(){
+                    var cname = document.getElementById('cname').value;
+                    var tname = document.getElementById('tname').value;
+                    var name1 = document.getElementById('name1').value;
+                    var name2 = document.getElementById('name2').value;
+                    var email1 = document.getElementById('email1').value;
+                    var email2 = document.getElementById('email2').value;
+                    var phone = document.getElementById('ph').value;
+
+                    if (cname == null || cname == "") {
+                        cnameError = "Please enter college name";
+                        document.getElementById("cname_error").innerHTML = cnameError;
+                        return submit = false;
+                    }
+
+                    if (tname == null || tname == "") {
+                        tnameError = "Please enter team name";
+                        document.getElementById("tname_error").innerHTML = tnameError;
+                        return submit = false;
+                    }
+
+                    if (name1 == null || name1 == "") {
+                        name1Error = "Please enter your name";
+                        document.getElementById("name1_error").innerHTML = name1Error;
+                        return submit = false;
+                    }
+
+                    if (name2 == null || name2 == "") {
+                        name2Error = "Please enter teammate's name";
+                        document.getElementById("name2_error").innerHTML = name2Error;
+                        return submit = false;
+                    }
+
+					if (name2 == name1) {
+                        name2Error = "Please enter different name";
+                        document.getElementById("name2_error").innerHTML = name2Error;
+                        return submit = false;
+                    }
+
+                    if (email1 == null || email1 == "") {
+                        email1Error = "Please enter your email";
+                        document.getElementById("email1_error").innerHTML = email1Error;
+                        return submit = false;
+                    }
+
+                    if (email2 == null || email2 == "") {
+                        email2Error = "Please enter teammate's email";
+                        document.getElementById("email2_error").innerHTML = email2Error;
+                        return submit = false;
+                    }
+                    if (email1 == email2) {
+                        email2Error = "Please enter different email";
+                        document.getElementById("email2_error").innerHTML = email2Error;
+                        return submit = false;
+                    }
+                    if (phone == null || phone == ""|| phone.length!=10) {
+                        telephoneError = "Please enter your correct phone number";
+                        document.getElementById("ph_error").innerHTML = telephoneError;
+                        return submit = false;
+                    }
+
+                insertData(cname,tname,name1,name2,email1,email2,phone);
+
+                return submit = false;
+        }
+
+        function removeWarning() {
+            document.getElementById(this.id + "_error").innerHTML = "";
+          }
+
+        document.getElementById("cname").onkeyup = removeWarning;
+        document.getElementById("tname").onkeyup = removeWarning;
+        document.getElementById("name1").onkeyup = removeWarning;
+        document.getElementById("name2").onkeyup = removeWarning;
+        document.getElementById("email1").onkeyup = removeWarning;
+        document.getElementById("email2").onkeyup = removeWarning;
+        document.getElementById("ph").onkeyup = removeWarning;
+
+        function insertData(cname,tname,name1,name2,email1,email2,phone){
+            firebase.database().ref('Kodikas/').push().set({
+                Collage_name: cname,
+                Team_name: tname,
+                Name_mem1: name1,
+                Name_mem2: name2,
+                Email_1: email1,
+                Email_2: email2,
+                Phone_no: phone,
+            });
+
+            
+        document.getElementById("cname").value = "";
+        document.getElementById("tname").value = "";
+        document.getElementById("name1").value = "";
+        document.getElementById("name2").value = "";
+        document.getElementById("email1").value = "";
+        document.getElementById("email2").value = "";
+        document.getElementById("ph").value = "";
+        var e = document.getElementById("alert-box");
+          e.style.display = 'block';
+        }
+
+    </script>
+
+</html>
+<!-- end document-->
